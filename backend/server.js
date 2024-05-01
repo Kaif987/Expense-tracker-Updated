@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 const authRoutes = require("./routes/auth")
 const expenseRoutes = require('./routes/expense')
 const cors = require("cors")
-const {middleware} = require("./middleware/authMiddleware")
+const { middleware } = require("./middleware/authMiddleware")
 
 const app = express()
 
@@ -17,7 +17,7 @@ const URI = process.env.ATLAS_URI
 
 mongoose.connect(URI)
 const connection = mongoose.connection
-connection.once("open", () =>{
+connection.once("open", () => {
     console.log("Successfully connected to mongodb database")
 })
 
@@ -27,6 +27,6 @@ app.use("/api/users", authRoutes)
 app.use(middleware)
 app.use("/api/expenses", expenseRoutes)
 
-app.listen(port, () =>{
+app.listen(port, () => {
     console.log("Server running on port " + port)
 })
