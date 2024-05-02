@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useExpenseContext } from '../Hooks/useExpenseContext'
 import CreateNewExpense from '../Components/CreateNewExpense'
 import ExpenseItem from '../Components/ExpenseItem'
@@ -10,18 +10,10 @@ export default function Home() {
     const [filterValue, setFilterValue] = useState('')
     const [searchValue, setSearchValue] = useState('')
     const [categorySearch, setCategorySearch] = useState('')
-    const [filteredExpense, setFilteredExpense] = useState([])
+    let filteredExpense = expense
 
-    const toggle = () => {
-        setNewExpenseModalOpen(prev => !prev)
-    }
-
-    const handleFilterChange = (event) => {
-        setFilterValue(event.target.value)
-    }
-
-    useEffect(() => {
-        setFilteredExpense(expense.filter(item => {
+    filteredExpense = useMemo(() => {
+        const searchFilteredResult = filteredExpense.filter(item => {
             if (filterValue === '' && searchValue === '') {
                 return true
             } else if (filterValue !== '' && item.date.includes(filterValue)) {
@@ -31,20 +23,62 @@ export default function Home() {
             } else {
                 return false
             }
-        }))
-    }, [filterValue])
+        })
 
-
-    useEffect(() => {
-        setFilteredExpense(expense.filter(expense => {
+        return searchFilteredResult.filter(expense => {
             if (categorySearch === '')
                 return true
             else {
                 return expense.category === categorySearch
             }
-        }))
+        })
 
-    }, [categorySearch, expense])
+    }, [filterValue, categorySearch, searchValue, expense])
+
+    // filteredExpense = useMemo(() => {
+    //     console.log("second use memo also running")
+    //     return filteredExpense.filter(expense => {
+    //         if (categorySearch === '')
+    //             return true
+    //         else {
+    //             return expense.category === categorySearch
+    //         }
+    //     })
+    // }, [categorySearch, expense])
+
+    const toggle = () => {
+        setNewExpenseModalOpen(prev => !prev)
+    }
+
+    const handleFilterChange = (event) => {
+        setFilterValue(event.target.value)
+    }
+
+    // useEffect(() => {
+    //     setFilteredExpense(expense.filter(item => {
+    //         if (filterValue === '' && searchValue === '') {
+    //             return true
+    //         } else if (filterValue !== '' && item.date.includes(filterValue)) {
+    //             return true
+    //         } else if (searchValue !== '' && item.name.toLowerCase().includes(searchValue.toLowerCase())) {
+    //             return true
+    //         } else {
+    //             return false
+    //         }
+    //     }))
+    // }, [filterValue])
+
+
+    // useEffect(() => {
+    //     setFilteredExpense(expense.filter(expense => {
+    //         if (categorySearch === '')
+    //             return true
+    //         else {
+    //             return expense.category === categorySearch
+    //         }
+    //     }))
+
+    // }, [categorySearch, expense])
 
 
 

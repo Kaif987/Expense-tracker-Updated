@@ -6,9 +6,6 @@ export default function TotalExpense({ expense }) {
     const needExpense = expense.filter(item => item.category === 'need').reduce((total, filterExpense) => total + filterExpense.amount, 0)
     const investmentExpense = expense.filter(item => item.category === 'investment').reduce((total, filterExpense) => total + filterExpense.amount, 0)
 
-    console.log({ wantExpense, needExpense, investmentExpense })
-
-
     return (
         <div className='w-full col-span-4'>
             <h1 className='font-semibold text-2xl'>Total Expense</h1>
