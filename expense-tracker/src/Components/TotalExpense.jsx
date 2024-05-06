@@ -9,14 +9,14 @@ export default function TotalExpense({ expense }) {
     return (
         <div className='w-full col-span-4'>
             <h1 className='font-semibold text-2xl'>Total Expense</h1>
-            <table className=' rounded-md mt-6 border border-black  overflow-x-auto'>
+            <table className=' rounded-md mt-6 border border-black  overflow-x-auto w-1/3'>
                 <thead className='text-gray-700 border border-black' >
-                    <tr>
+                    <tr className=''>
                         <th className='font-semibold py-3 '>Category</th>
                         <th>Amount</th>
                     </tr>
                 </thead>
-                <tbody className='border border-black'>
+                <tbody className='border border-black text-center'>
                     <tr className='border border-black'>
                         <td>Want</td>
                         <td>{wantExpense}</td>
